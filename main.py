@@ -55,13 +55,14 @@ def save():
     for k in range(len(ship_list)):
         filename.write("\n"+ship_list[k-1])
     filename.close()
+clear()
 while True:
     print("You have " + str(money)+"$ and "+str(user_case)+" cases.")
-    user_input=input("Menu ")
-    if user_input == "case":
+    user_input=input("Menu:\n1. Case menu\n2. Collection\n3. Exit\n>>> ")
+    if user_input == "1":
         clear()
-        user_input2 = input("Want to buy/open/close?")
-        if user_input2 == "buy":
+        user_input2 = input("What do you want to do with cases?\n1. Buy\n2. Open\n3. Close\n>>> ")
+        if user_input2 == "1":
             clear()
             user_input3 = int(input("How much?"))
             if money >= 10*user_input3:
@@ -70,9 +71,11 @@ while True:
                 clear()
                 print("Thanks for buying", user_input3, "cases.")
                 save()
+                input_enter = input("Press ENTER to continue... ")
             else:
                 print("Not enough money, bro.")
-        if user_input2 == "open":
+                input_enter = input("Press ENTER to continue... ")
+        if user_input2 == "2":
             if user_case >= 1:
                 user_case -= 1
                 gotter = roll()
@@ -83,7 +86,8 @@ while True:
                 cost = (got_let_int(gotter_letter)*int(gotter_int))//1000
                 print("You got:", gotter+"! It costs:", cost)
                 save()
-    if user_input == "coll":
+                input_enter = input("Press ENTER to continue... ")
+    if user_input == "2":
         clear()
         coli = ""
         for ii in range(len(ship_list)):
@@ -92,7 +96,9 @@ while True:
             else:
                 coli += ship_list[ii-1] + ", "
         print("Your collection of ships:", coli)
-    if user_input == "exit":
+        input_enter = input("Press ENTER to continue... ")
+    if user_input == "3":
         break
-
+    else:
+        clear()
                 
