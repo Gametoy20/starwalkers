@@ -3,7 +3,7 @@ import os
 import re
 import termcolor
 import time
-from func import roll, got_let_int
+from func import roll, got_let_int, get_int_ship
 from termcolor import colored, cprint
 print(colored("WELCOME TO STARWALKERS!", "red", attrs=["bold"]))
 
@@ -118,6 +118,7 @@ while True:
             enemy_cost = 0
             if user_input <= len(ship_list) and user_input > 0:
                 player_ship = ship_list[user_input-1]
+                ship_list.pop(user_input-1)
                 player_letter, player_int = player_ship.split("-")
                 player_cost = (got_let_int(player_letter)*int(player_int))//1000
 
@@ -133,11 +134,21 @@ while True:
             if player_cost != 0 and enemy_cost != 0:
                 if player_cost > enemy_cost:
                     print("You won and got: "+str(enemy_cost//2)+"$!")
+                    damage = random.randint(0, 30)
+                    time_player_int = int(player_int)
+                    fin_player_int = time_player_int - damage
+                    player_int = get_int_ship(fin_player_int)
+                    new_ship = str(player_letter)+str(player_int)
+                    ship_list.append(new_ship)
+                    print("Your ship has taken "+str(damage)+" damage. Now it is "+str(new_ship)+".")
                     money += enemy_cost//2
                     enemy_list.pop(0)
+                    save()
                     input_enter = input("Press ENTER to continue... ")
-                else:
-                    print("You've lost!")
+                    
+                else:   
+                    print("You've lost your ship! Be careful next time!)")
+                    save()
                     input_enter = input("Press ENTER to continue... ")
     if user_input == "4":
         break
