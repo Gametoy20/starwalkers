@@ -126,7 +126,7 @@ while True:
                 enemy_ship = enemy_list[0]
                 enemy_letter, enemy_int = enemy_ship.split("-")
                 enemy_cost = (got_let_int(enemy_letter)*int(enemy_int))//1000
-            elif user_input == "0":
+            elif user_input == 0:
                 print("You left the battlefield")
                 input_enter = input("Press ENTER to continue... ")
             else:
