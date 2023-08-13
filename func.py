@@ -100,3 +100,15 @@ def roll():
     elif ran/10 < 1:
         niki = ship_let+"-000"+str(ran)
     return niki
+def get_int_ship(self_int):
+    if int(self_int)/10 >= 1:
+        if int(self_int)/100 >= 1:
+            if int(self_int)/1000 >= 1:
+                niki = "-"+str(self_int)
+            elif int(self_int)/1000 < 1:
+                niki = "-0"+str(self_int)
+        elif int(self_int)/100 < 1:
+            niki = "-00"+str(self_int)
+    elif int(self_int)/10 < 1:
+        niki = "-000"+str(self_int)
+    return niki
