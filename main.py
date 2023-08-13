@@ -2,6 +2,7 @@ import random
 import os
 import re
 import termcolor
+import time
 from func import roll, got_let_int
 from termcolor import colored, cprint
 print(colored("WELCOME TO STARWALKERS!", "red", attrs=["bold"]))
@@ -58,7 +59,7 @@ def save():
 clear()
 while True:
     print("You have " + str(money)+"$ and "+str(user_case)+" cases.")
-    user_input=input("Menu:\n1. Case menu\n2. Collection\n3. Exit\n>>> ")
+    user_input=input("Menu:\n1. Case menu\n2. Collection\n3. Fight\n4. Exit\n>>> ")
     if user_input == "1":
         clear()
         user_input2 = input("What do you want to do with cases?\n1. Buy\n2. Open\n3. Close\n>>> ")
@@ -98,6 +99,47 @@ while True:
         print("Your collection of ships:", coli)
         input_enter = input("Press ENTER to continue... ")
     if user_input == "3":
+        clear()
+        enemy_rand = random.randint(1,3)
+        enemy_list = []
+        for en_i in range(enemy_rand):
+            roll_en = roll()
+            enemy_list.append(roll_en)
+        print("Your enemies:")
+        for en_i1 in range(enemy_rand):
+            print(str(en_i1+1)+". "+enemy_list[en_i1-1])
+            time.sleep(0.8)
+        while len(enemy_list) != 0:
+            print("Choose your ship to attack:")
+            for i_non in range(len(ship_list)):
+                print(str(i_non+1)+") "+ship_list[i_non])
+            user_input = int(input(">>> "))
+            player_cost = 0
+            enemy_cost = 0
+            if user_input <= len(ship_list) and user_input > 0:
+                player_ship = ship_list[user_input-1]
+                player_letter, player_int = player_ship.split("-")
+                player_cost = (got_let_int(player_letter)*int(player_int))//1000
+
+                enemy_ship = enemy_list[0]
+                enemy_letter, enemy_int = enemy_ship.split("-")
+                enemy_cost = (got_let_int(enemy_letter)*int(enemy_int))//1000
+            elif user_input == "exit":
+                print("You left the battlefield")
+                input_enter = input("Press ENTER to continue... ")
+            else:
+                print("You do not have ship with choosed number.")
+                input_enter = input("Press ENTER to continue... ")
+            if player_cost != 0 and enemy_cost != 0:
+                if player_cost > enemy_cost:
+                    print("You won and got: "+str(enemy_cost//2)+"$!")
+                    money += enemy_cost//2
+                    enemy_list.pop(0)
+                    input_enter = input("Press ENTER to continue... ")
+                else:
+                    print("You've lost!")
+                    input_enter = input("Press ENTER to continue... ")
+    if user_input == "4":
         break
     else:
         clear()
