@@ -105,11 +105,12 @@ while True:
         for en_i in range(enemy_rand):
             roll_en = roll()
             enemy_list.append(roll_en)
-        print("Your enemies:")
-        for en_i1 in range(enemy_rand):
-            print(str(en_i1+1)+". "+enemy_list[en_i1-1])
-            time.sleep(0.8)
         while len(enemy_list) != 0:
+            clear()
+            print("Your enemies:")
+            for en_i1 in range(enemy_rand):
+                print(str(en_i1+1)+". "+enemy_list[en_i1-1])
+                time.sleep(0.8)
             print("Choose your ship to attack:")
             for i_non in range(len(ship_list)):
                 print(str(i_non+1)+") "+ship_list[i_non])
@@ -125,7 +126,7 @@ while True:
                 enemy_ship = enemy_list[0]
                 enemy_letter, enemy_int = enemy_ship.split("-")
                 enemy_cost = (got_let_int(enemy_letter)*int(enemy_int))//1000
-            elif user_input == "exit":
+            elif user_input == "0":
                 print("You left the battlefield")
                 input_enter = input("Press ENTER to continue... ")
             else:
