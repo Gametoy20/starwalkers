@@ -110,9 +110,10 @@ while True:
         while len(enemy_list) != 0:
             clear()
             print("Your enemies:")
-            for en_i1 in range(enemy_rand):
+            for en_i1 in range(len(enemy_list)):
                 print(str(en_i1+1)+". "+enemy_list[en_i1-1])
                 time.sleep(0.8)
+            print("You will be fighting with: "+str(enemy_list[0]))
             print("Choose your ship to attack:")
             for i_non in range(len(ship_list)):
                 print(str(i_non+1)+") "+ship_list[i_non])
