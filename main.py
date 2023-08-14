@@ -1,13 +1,13 @@
 import random
 import os
 import re
-import termcolor
+#import termcolor
 import time
 from func import roll, got_let_int, get_int_ship
-from termcolor import colored, cprint
+#from termcolor import colored, cprint
 print("WELCOME TO STARWALKERS!")
 time.sleep(0.8)
-print("Version: 0.1")
+print("Version: 0.1.1")
 
 
 let_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
