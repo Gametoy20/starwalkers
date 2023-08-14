@@ -7,7 +7,7 @@ from func import roll, got_let_int, get_int_ship, get_d_sym, get_cost
 #from termcolor import colored, cprint
 print("WELCOME TO STARWALKERS!")
 time.sleep(0.8)
-print("Version: 0.1.1")
+print("Version: 0.1.2")
 #10-20=1 21-70=2 71-120=3 121-200=4 201-259=5
 
 let_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
