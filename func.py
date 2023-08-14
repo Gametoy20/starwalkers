@@ -112,3 +112,19 @@ def get_int_ship(self_int):
     elif int(self_int)/10 < 1:
         niki = "-000"+str(self_int)
     return niki
+def get_d_sym(a):
+    if a <= 20:
+        total = "$"
+    elif a <= 70:
+        total = "$|$"
+    elif a <= 120:
+        total = "$|$|$"
+    elif a <= 200:
+        total = "$|$|$|$"
+    else:
+        total = "$|$|$|$|$"
+    return total
+def get_cost(a):
+    s_let, s_int = a.split("-")
+    cost = (got_let_int(s_let)*int(s_int))//1000
+    return cost
