@@ -3,12 +3,12 @@ import os
 import re
 #import termcolor
 import time
-from func import roll, got_let_int, get_int_ship
+from func import roll, got_let_int, get_int_ship, get_d_sym, get_cost
 #from termcolor import colored, cprint
 print("WELCOME TO STARWALKERS!")
 time.sleep(0.8)
 print("Version: 0.1.1")
-
+#10-20=1 21-70=2 71-120=3 121-200=4 201-259=5
 
 let_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
 summ_w = len(let_list)
@@ -79,7 +79,7 @@ while True:
                 print("Not enough money, bro.")
                 input_enter = input("Press ENTER to continue... ")
         if user_input2 == "2":
-            if user_case >= 1:
+            if user_case >= 1 and len(ship_list) < 10:
                 user_case -= 1
                 gotter = roll()
                 ship_list.append(gotter)
@@ -87,18 +87,19 @@ while True:
                 clear()
                 gotter_letter, gotter_int = gotter.split("-")
                 cost = (got_let_int(gotter_letter)*int(gotter_int))//1000
-                print("You got:", gotter+"! It costs:", cost)
+                print("You got:", gotter+"! It costs: "+str(cost)+", and its rank: "+get_d_sym(cost)+"!")
                 save()
+                input_enter = input("Press ENTER to continue... ")
+            elif len(ship_list) == 10:
+                clear()
+                print("You have too many ships. Sell one and you can open cases again.")
                 input_enter = input("Press ENTER to continue... ")
     if user_input == "2":
         clear()
-        coli = ""
-        for ii in range(len(ship_list)):
-            if ii == len(ship_list)-1:
-                coli += ship_list[ii-1] + "."
-            else:
-                coli += ship_list[ii-1] + ", "
-        print("Your collection of ships:", coli)
+        print("Your collection of ships:")
+        for zzz in range(len(ship_list)):
+            time.sleep(0.1)
+            print(str(zzz+1)+") "+str(ship_list[zzz])+" "+get_d_sym(get_cost(ship_list[zzz])))
         input_enter = input("Press ENTER to continue... ")
     if user_input == "3":
         clear()
@@ -107,28 +108,26 @@ while True:
         for en_i in range(enemy_rand):
             roll_en = roll()
             enemy_list.append(roll_en)
-        while len(enemy_list) != 0:
+        while len(enemy_list) != 0 and len(ship_list) != 0:
             clear()
             print("Your enemies:")
             for en_i1 in range(len(enemy_list)):
                 print(str(en_i1+1)+". "+enemy_list[en_i1-1])
                 time.sleep(0.8)
-            print("You will be fighting with: "+str(enemy_list[0]))
+            print("You will be fighting with: "+str(enemy_list[0])+" "+str(get_d_sym(get_cost(str(enemy_list[0])))))
             print("Choose your ship to attack:")
             for i_non in range(len(ship_list)):
-                print(str(i_non+1)+") "+ship_list[i_non])
+                print(str(i_non+1)+") "+ship_list[i_non]+" "+str(get_d_sym(get_cost(ship_list[i_non]))))
             user_input = int(input(">>> "))
             player_cost = 0
             enemy_cost = 0
             if user_input <= len(ship_list) and user_input > 0:
                 player_ship = ship_list[user_input-1]
                 ship_list.pop(user_input-1)
-                player_letter, player_int = player_ship.split("-")
-                player_cost = (got_let_int(player_letter)*int(player_int))//1000
+                player_cost = get_cost(player_ship)
 
                 enemy_ship = enemy_list[0]
-                enemy_letter, enemy_int = enemy_ship.split("-")
-                enemy_cost = (got_let_int(enemy_letter)*int(enemy_int))//1000
+                enemy_cost = get_cost(enemy_ship)
             elif user_input == 0:
                 print("You left the battlefield")
                 enemy_list.clear()
