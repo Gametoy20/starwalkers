@@ -7,7 +7,7 @@ from func import roll, got_let_int, get_int_ship, get_d_sym, get_cost
 #from termcolor import colored, cprint
 print("WELCOME TO STARWALKERS!")
 time.sleep(0.8)
-print("Version: 0.1.2")
+print("Version: 0.1.3")
 #10-20=1 21-70=2 71-120=3 121-200=4 201-259=5
 
 let_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -100,7 +100,16 @@ while True:
         for zzz in range(len(ship_list)):
             time.sleep(0.1)
             print(str(zzz+1)+") "+str(ship_list[zzz])+" "+get_d_sym(get_cost(ship_list[zzz])))
-        input_enter = input("Press ENTER to continue... ")
+        coll_input = input("Type nothing to exit or type '1' to open Sell Menu")
+        if coll_input == "1":
+            coll_input1 = int(input("Write a number of ship that you want to sell: "))
+            s_cost = get_cost(ship_list[coll_input1-1])//2
+            s_name = ship_list[coll_input1-1]
+            ship_list.pop(coll_input1-1)
+            money += s_cost
+            save()
+            print("Your ship "+str(s_name)+" was sold and you got "+str(s_cost)+"$!")
+            input_enter = input("Press ENTER to continue... ")
     if user_input == "3":
         clear()
         enemy_rand = random.randint(1,3)
