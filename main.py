@@ -7,7 +7,7 @@ from func import roll, got_let_int, get_int_ship, get_d_sym, get_cost
 #from termcolor import colored, cprint
 print("WELCOME TO STARWALKERS!")
 time.sleep(0.8)
-print("Version: 0.1.3")
+print("Version: 0.2")
 #10-20=1 21-70=2 71-120=3 121-200=4 201-259=5
 
 let_list = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"]
@@ -30,7 +30,7 @@ fi = -1
 #print(infi)
 #zina = input()
 clear = lambda: os.system('cls')
-money = 100
+money = 30
 user_case = 0
 ship_list = []
 name = str(input("Enter your name: "))
@@ -47,7 +47,7 @@ try:
     #print("Lines:", lines)
 except FileNotFoundError:
     filename = open(name_txt, "w")
-    filename.write("100\n")
+    filename.write("30\n")
     filename.write("0")
     filename.close()
     print("Registered:", name)
@@ -127,42 +127,52 @@ while True:
             print("Choose your ship to attack:")
             for i_non in range(len(ship_list)):
                 print(str(i_non+1)+") "+ship_list[i_non]+" "+str(get_d_sym(get_cost(ship_list[i_non]))))
-            user_input = int(input(">>> "))
+            t_user_input = input(">>> ")
             player_cost = 0
             enemy_cost = 0
-            if user_input <= len(ship_list) and user_input > 0:
-                player_ship = ship_list[user_input-1]
-                ship_list.pop(user_input-1)
-                player_cost = get_cost(player_ship)
+            try:
+                user_input = int(t_user_input)
+            except ValueError:
+                print("You've written wrong number. Try again.")
+                #user_input = 123456
+                input_enter = input("Press ENTER to continue... ")
+            if isinstance(user_input, int):
+                if user_input <= len(ship_list) and user_input > 0:
+                    player_ship = ship_list[user_input-1]
+                    player_let, player_int = player_ship.split("-")
+                    ship_list.pop(user_input-1)
+                    player_cost = get_cost(player_ship)
 
-                enemy_ship = enemy_list[0]
-                enemy_cost = get_cost(enemy_ship)
-            elif user_input == 0:
-                print("You left the battlefield")
-                enemy_list.clear()
-                input_enter = input("Press ENTER to continue... ")
+                    enemy_ship = enemy_list[0]
+                    enemy_cost = get_cost(enemy_ship)
+                elif user_input == 0:
+                    print("You left the battlefield")
+                    enemy_list.clear()
+                    input_enter = input("Press ENTER to continue... ")
+                else:
+                    print("You do not have ship with choosed number.")
+                    input_enter = input("Press ENTER to continue... ")
+                if player_cost != 0 and enemy_cost != 0:
+                    if player_cost > enemy_cost:
+                        print("You won and got: "+str(enemy_cost//2)+"$!")
+                        damage = random.randint(0, 30)
+                        time_player_int = int(player_int)
+                        fin_player_int = time_player_int - damage
+                        player_int = get_int_ship(fin_player_int)
+                        new_ship = str(player_let)+str(player_int)
+                        ship_list.append(new_ship)
+                        print("Your ship has taken "+str(damage)+" damage. Now it is "+str(new_ship)+".")
+                        money += enemy_cost//2
+                        enemy_list.pop(0)
+                        save()
+                        input_enter = input("Press ENTER to continue... ")
+                        
+                    else:   
+                        print("You've lost your ship! Be careful next time!)")
+                        save()
+                        input_enter = input("Press ENTER to continue... ")
             else:
-                print("You do not have ship with choosed number.")
-                input_enter = input("Press ENTER to continue... ")
-            if player_cost != 0 and enemy_cost != 0:
-                if player_cost > enemy_cost:
-                    print("You won and got: "+str(enemy_cost//2)+"$!")
-                    damage = random.randint(0, 30)
-                    time_player_int = int(player_int)
-                    fin_player_int = time_player_int - damage
-                    player_int = get_int_ship(fin_player_int)
-                    new_ship = str(player_letter)+str(player_int)
-                    ship_list.append(new_ship)
-                    print("Your ship has taken "+str(damage)+" damage. Now it is "+str(new_ship)+".")
-                    money += enemy_cost//2
-                    enemy_list.pop(0)
-                    save()
-                    input_enter = input("Press ENTER to continue... ")
-                    
-                else:   
-                    print("You've lost your ship! Be careful next time!)")
-                    save()
-                    input_enter = input("Press ENTER to continue... ")
+                print()
     if user_input == "4":
         break
     else:
