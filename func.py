@@ -2,6 +2,7 @@ import random
 
 def got_let_int(ggg):
     letters = {
+        "*": 100,
         "A": 26,
         "B": 25,
         "C": 24,
